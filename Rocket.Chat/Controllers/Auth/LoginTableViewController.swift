@@ -251,8 +251,8 @@ class LoginTableViewController: BaseTableViewController {
                 "username": email,
                 "ldapPass": password,
                 "ldapOptions": []
-            ] as [String: Any]
-
+                ] as [String: Any]
+            
             AuthManager.auth(params: params, completion: self.handleAuthenticationResponse)
         } else {
             AuthManager.auth(email, password: password, completion: self.handleAuthenticationResponse)

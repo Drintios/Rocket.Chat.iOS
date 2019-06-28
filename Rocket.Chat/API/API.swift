@@ -100,9 +100,16 @@ final class API: APIFetcher {
                 password: sslCertificatePassword
             )
         }
-
+        let username = "username"
+        let password = "password"
+        let loginString = String(format: "%@:%@", username, password)
+        let loginData = loginString.data(using: String.Encoding.utf8)!
+        let base64LoginString = loginData.base64EncodedString()
+        let authString = "Basic \(base64LoginString)"
+        
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForRequest = 30
+        configuration.httpAdditionalHeaders = ["Authorization" : authString]
 
         var session = URLSession(
             configuration: configuration,

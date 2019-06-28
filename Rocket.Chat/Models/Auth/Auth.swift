@@ -14,6 +14,7 @@ final class Auth: Object {
     // Server
     @objc dynamic var serverURL = ""
     @objc dynamic var serverVersion = ""
+    @objc dynamic var basicAuthBase64 = ""
 
     var apiHost: URL? {
         guard let socketURL = URL(string: serverURL, scheme: "https") else {

@@ -34,6 +34,10 @@ extension URL {
         guard let url = URL(string: string) else {
             return nil
         }
+        
+        print(url)
+        print(url.password)
+        print(url.user)
 
         var port = ""
         if let validPort = url.port {
@@ -44,14 +48,24 @@ extension URL {
         if let validQuery = url.query, !validQuery.isEmpty {
             query = "?\(validQuery)"
         }
+        
+        var user = ""
+        if let validUser = url.user {
+            user = "\(validUser):"
+        }
+        
+        var password = ""
+        if let validPassword = url.password {
+            password = "\(validPassword)@"
+        }
 
         if let host = url.host, !host.isEmpty {
-            self.init(string: "\(scheme)://\(host)\(port)\(url.path)\(query)")
+            self.init(string: "\(scheme)://\(user)\(password)\(host)\(port)\(url.path)\(query)")
             return
         }
 
         if !url.path.isEmpty {
-            self.init(string: "\(scheme)://\(url.path)\(port)\(query)")
+            self.init(string: "\(scheme)://\(user)\(password)\(url.path)\(port)\(query)")
             return
         }
 

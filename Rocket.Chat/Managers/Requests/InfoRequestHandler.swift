@@ -26,6 +26,7 @@ final class InfoRequestHandler: NSObject {
 
     func validate(with url: URL, sslCertificatePath: URL?, sslCertificatePassword: String = "") {
         let api = API(host: url)
+        print(url)
 
         if let sslCertificatePath = sslCertificatePath {
             api.sslCertificatePath = sslCertificatePath

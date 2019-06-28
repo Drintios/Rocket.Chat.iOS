@@ -60,10 +60,17 @@ final class SocketManager {
     // MARK: Connection
 
     static func connect(_ url: URL, sslCertificate: SSLClientCertificate? = nil, completion: @escaping SocketCompletion) {
+        let username = "username"
+        let password = "password"
+        let loginString = String(format: "%@:%@", username, password)
+        let loginData = loginString.data(using: String.Encoding.utf8)!
+        let base64LoginString = loginData.base64EncodedString()
+        
         sharedInstance.serverURL = url
         sharedInstance.internalConnectionHandler = completion
 
         var request = URLRequest(url: url)
+        request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         request.setValue(url.host ?? "", forHTTPHeaderField: "Host")
 
         sharedInstance.socket = WebSocket(request: request)
